@@ -49,11 +49,11 @@ join_cluster() {
     return 0
   fi
 
-  # Check if already a member of the cluster (valid/joining state)
-  local current_status
-  current_status=$(riak-admin member-status 2>/dev/null | grep "riak@${RIAK_ID}" | awk '{print $2}') || true
-  if [ -n "$current_status" ] && [ "$current_status" != "leaving" ]; then
-    echo "Already a member of the cluster (status: $current_status), skipping join"
+  # Check if already a member of a multi-node cluster (not just a standalone node)
+  local cluster_members
+  cluster_members=$(riak-admin member-status 2>/dev/null | grep -c "riak@") || true
+  if [ "$cluster_members" -gt 1 ]; then
+    echo "Already a member of a ${cluster_members}-node cluster, skipping join"
     return 0
   fi
 

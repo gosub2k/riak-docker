@@ -42,9 +42,11 @@ spec:
     - name: http
       port: 8098
       targetPort: 8098
+      nodePort: 30098
     - name: protobuf
       port: 8087
       targetPort: 8087
+      nodePort: 30087
 ---
 # We use a stateful set because riak nodes in a cluster still have
 # a fixed identity. We would like it if nodes were automatically
@@ -88,6 +90,7 @@ spec:
       containers:
         - name: riak
           image: ghcr.io/gosub2k/riak-docker:latest
+          imagePullPolicy: Always
           env:
             - name: RIAK_CONF_INITIAL_DATA
               valueFrom:
