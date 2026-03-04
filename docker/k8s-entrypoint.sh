@@ -50,8 +50,7 @@ join_cluster() {
   fi
   local base_host=${POD_NAME%%-*}  # extract stateful set name
   # Should really just join node 0 but if down maybe ok to join other nodes.
-  # Theres no proof that this cluster join algorithm will work.
-  for i in $(seq 0 2); do
+  for i in "0"; do
     local try_host=$base_host-$i.${RIAK_SUBDOMAIN}
     echo "Trying to join cluster: $try_host"
     if [ "$base_host-$i" = "$POD_NAME" ]; then
