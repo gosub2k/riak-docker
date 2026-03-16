@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: bangfs
+  name: riak
 ---
 # Headless service for peer discovery during cluster formation.
 # publishNotReadyAddresses ensures pods appear in DNS before passing
@@ -10,7 +10,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: riak-headless
-  namespace: bangfs
+  namespace: riak
   labels:
     app: riak
 spec:
@@ -31,7 +31,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: riak
-  namespace: bangfs
+  namespace: riak
   labels:
     app: riak
 spec:
@@ -57,7 +57,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: riak
-  namespace: bangfs
+  namespace: riak
   labels:
     app: riak
 spec:
