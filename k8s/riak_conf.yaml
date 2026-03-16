@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: riak-conf
-  namespace: bangfs
+  namespace: riak
 data:
   # listener bind addresses set
   # strong_consistency settinig set
