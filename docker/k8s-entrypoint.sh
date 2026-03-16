@@ -88,11 +88,26 @@ done
 
 # Keep alive and periodically log cluster status
 while true; do
-  echo -n "sleeping..."
   sleep 30
+
+  echo ""
+  echo "=========================================="
+  echo "  $(date)"
+  echo "=========================================="
+
   if ! riak ping; then
-    echo "$(date): riak ping failed!"
+    echo "  PING: FAILED"
+  else
+    echo "  PING: ok"
   fi
-  echo "$(date): cluster status:"
-  riak-admin cluster status
+
+  echo ""
+  echo "-- Member Status -------------------------"
+  riak-admin member-status 2>/dev/null || echo "  (unavailable)"
+
+  echo ""
+  echo "-- Ring Status ---------------------------"
+  riak-admin ring-status 2>/dev/null | head -30 || echo "  (unavailable)"
+
+  echo "=========================================="
 done
