@@ -76,16 +76,14 @@ spec:
     # i.e., distribute them among nodes for reliability.
       affinity:
         podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
                 - key: app
                   operator: In
                   values:
                   - riak
-              topologyKey: topology.kubernetes.io/zone
+            topologyKey: topology.kubernetes.io/zone
       terminationGracePeriodSeconds: 120
       containers:
         - name: riak
