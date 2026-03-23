@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-NAMESPACE="bangfs"
+NAMESPACE="riak"
 STATEFULSET="riak"
 
 RED='\033[1;31m'
